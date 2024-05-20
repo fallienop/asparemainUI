@@ -7,7 +7,7 @@ const initialState = {
     isAuthenticated: false,
     error: false,
     errorMessage: '',
-    mainURL: 'https://localhost:7186'
+    mainURL: 'https://k8dm08gl-7186.euw.devtunnels.ms'
     // basketItemIds:{}
 }
 
