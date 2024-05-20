@@ -39,7 +39,7 @@ const RegistrationMark = () => {
         <div className="row">
           <div className="col-lg-12">
             <div className={styled.search}>
-              <div className={styled.city}>
+              {/* <div className={styled.city}>
                 <input type="search" placeholder="Bütün şəhərlər" />
                 <div className={styled.arrow}>
                   <span className={styled.stick}></span>
@@ -47,7 +47,8 @@ const RegistrationMark = () => {
                     <MdKeyboardArrowDown />
                   </span>
                 </div>
-              </div>
+              </div> */}
+              <select name="region_number" ><option value=""></option><option value="01">01-Abşeron</option><option value="02">02-Ağdam</option><option value="03">03-Ağdaş</option><option value="04">04-Ağcabədi</option><option value="05">05-Ağstafa</option><option value="06">06-Ağsu</option><option value="07">07-Astara</option><option value="08">08-Balakən</option><option value="09">09-Bərdə</option><option value="10">10-Bakı</option><option value="11">11-Beyləqan</option><option value="12">12-Biləsuvar</option><option value="14">14-Cəbrayıl</option><option value="15">15-Cəlilabad</option><option value="16">16-Daşkəsən</option><option value="17">17-Şabran</option><option value="18">18-Şirvan</option><option value="19">19-Füzuli</option><option value="20">20-Gəncə</option><option value="21">21-Gədəbəy</option><option value="22">22-Goranboy</option><option value="23">23-Göyçay</option><option value="24">24-Hacıqabul</option><option value="25">25-Xanlar</option><option value="26">26-Xankəndi</option><option value="27">27-Xaçmaz</option><option value="28">28-Xocavənd</option><option value="29">29-Xızı</option><option value="30">30-İmişli</option><option value="31">31-İsmayıllı</option><option value="32">32-Kəlbəcər</option><option value="33">33-Kürdəmir</option><option value="34">34-Qax</option><option value="35">35-Qazax</option><option value="36">36-Qəbələ</option><option value="37">37-Qobustan</option><option value="38">38-Qusar</option><option value="39">39-Qubadlı</option><option value="40">40-Quba</option><option value="41">41-Laçın</option><option value="42">42-Lənkəran</option><option value="43">43-Lerik</option><option value="44">44-Masallı</option><option value="45">45-Mingəçevir</option><option value="46">46-Naftalan</option><option value="47">47-Neftçala</option><option value="48">48-Oğuz</option><option value="49">49-Saatlı</option><option value="50">50-Sumqayıt</option><option value="51">51-Samux</option><option value="52">52-Salyan</option><option value="53">53-Siyəzən</option><option value="54">54-Sabirabad</option><option value="55">55-Şəki</option><option value="56">56-Şamaxı</option><option value="57">57-Şəmkir</option><option value="58">58-Şuşa</option><option value="59">59-Tərtər</option><option value="60">60-Tovuz</option><option value="61">61-Ucar</option><option value="62">62-Zaqatala</option><option value="63">63-Zərdab</option><option value="64">64-Zəngilan</option><option value="65">65-Yardımlı</option><option value="66">66-Yevlax</option><option value="67">67-Babək</option><option value="68">68-Şərur</option><option value="69">69-Ordubad</option><option value="70">70-Naxçıvan</option><option value="71">71-Şahbuz</option><option value="72">72-Culfa</option><option value="73">73-Sədərək </option><option value="74">74-Kəngərli</option><option value="75">75-Naxçıvan</option><option value="85">85-Naxçıvan</option><option value="90">90-Bakı</option><option value="99">99-Azərbaycan</option><option value="77">77-Bakı</option></select>
               <div className={styled.letter}>
                 <input type="search" placeholder="-" />
                 <div className={styled.arrow}>
