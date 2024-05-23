@@ -24,6 +24,7 @@ import FinishingSignup from "./components/Logins/FinishingSignup";
 import { useEffect, useState } from "react";
 import Footer from "./features/Layout/Footer";
 import Header from "./features/Layout/Header";
+import AllDatas from "./pages/AllDatas";
 
 function App() {
   // useEffect(() => {
@@ -60,7 +61,8 @@ function App() {
         <Route path="/comfirmphoto/" element={<ComfirmPhoto />} />
         <Route path="/finishingsignup/" element={<FinishingSignup />} />
         <Route path="/categoryDetails/" element={<CategoryDetails />} />
-
+        <Route path="/alldatas/" element={<AllDatas />} />
+        
         {/* -------------------------------------------- */}
         <Route path="/filter/" element={<FilterPage />} />
         <Route path="/itemDetails/" element={<ItemDetails />} />

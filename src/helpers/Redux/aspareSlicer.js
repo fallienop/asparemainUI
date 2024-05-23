@@ -7,7 +7,8 @@ const initialState = {
     isAuthenticated: false,
     error: false,
     errorMessage: '',
-    mainURL: 'https://k8dm08gl-7186.euw.devtunnels.ms'
+    mainURL: 'https://localhost:7186',
+    filter:{}
     // basketItemIds:{}
 }
 
@@ -36,9 +37,12 @@ export const aspareSlicer = createSlice({
                 default: 
                 break;
             }
+        },
+        filterSetter:(state,action)=>{
+            state.filter=action.payload
         }
     }
 })
 
-export const {authReducer} = aspareSlicer.actions
+export const {authReducer,filterSetter} = aspareSlicer.actions
 export default aspareSlicer.reducer
