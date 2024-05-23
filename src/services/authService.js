@@ -16,10 +16,10 @@ const useAuth = () => {
                 if (user.status) {
                     const { token } = user.data;
                     console.log(token);
-                    // localStorage.setItem("jwtToken", token.accessToken);
+             
                     Cookies.set('token',token.accessToken,{secure:true,sameSite:true})
                     Cookies.set('refreshToken',token.refreshToken,{secure:true,sameSite:true})
-                    // localStorage.setItem("refreshToken", token.refreshToken);
+                    
                     setAuthorizationToken(token);
                 }
                 return user.data;
@@ -32,7 +32,26 @@ const useAuth = () => {
         setAuthorizationToken(false);
     };
 
-    return { login, logout };
+    const signUp = async (nameSurname,userName, email,password,phoneNumber) => {
+        return await axios.post(`${mainURL}/SignUp`, { nameSurname,userName,email,password , phoneNumber})
+            .then(user => {
+                console.log(user.data)
+                console.log(user.status)
+             
+                if (user.status) {
+                    const { token } = user.data;
+                    console.log(token);
+                 
+                    Cookies.set('token',token.accessToken,{secure:true,sameSite:true})
+                    Cookies.set('refreshToken',token.refreshToken,{secure:true,sameSite:true})
+                
+                    setAuthorizationToken(token);
+                }
+                return user.data;
+            })
+            .catch(err => console.log(err));
+    };
+    return { login, logout,signUp };
 };
 
 export default useAuth;
