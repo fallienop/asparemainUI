@@ -1,37 +1,28 @@
 import React, { useState, useEffect } from "react";
 import styled from "./category.module.scss";
-import img1 from "../../assets/Car-Battery.svg";
-import img2 from "../../assets/Air-Filter.svg";
-import img3 from "../../assets/Group 1 (1).svg";
-import img4 from "../../assets/Group (2).svg";
-import img5 from "../../assets/Group 8.svg";
-import img6 from "../../assets/Group 4.svg";
-import img7 from "../../assets/Group.svg";
-import img8 from "../../assets/Oil-Filter.svg";
-import img9 from "../../assets/Truck.svg";
-import img10 from "../../assets/Truck.svg";
-import img11 from "../../assets/Truck.svg";
-import img12 from "../../assets/Truck.svg";
 import { MdOutlineSort } from "react-icons/md";
 import { IoSearchOutline } from "react-icons/io5";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import { MdKeyboardArrowLeft } from "react-icons/md";
-import { useSelector } from "react-redux";
+import { useSelector , useDispatch } from "react-redux";
+import { filterSetter } from "../../helpers/Redux/aspareSlicer";
 import axios from "axios";
 const Category = () => {
+  const navigate=useNavigate();
+  const dispatch=useDispatch();
   const [startIndex, setStartIndex] = useState(0);
   const [visibleCategories, setVisibleCategories] = useState(8); // Başlangıçta 8 kategori görünecek.
-  const [categories,setCategories]=useState([]);
+  const [categories, setCategories] = useState([]);
   const mainURL = useSelector(state => state.aspareSlice.mainURL);
-  const getCategories= async ()=>{
+  const getCategories = async () => {
     const response = await axios.get(`${mainURL}/categories`);
-  setCategories(response.data)
-  console.log(response.data)
+    setCategories(response.data)
+    console.log(response.data)
   }
-  useEffect(()=>{
-       getCategories();
-          },[]);
+  useEffect(() => {
+    getCategories();
+  }, []);
   useEffect(() => {
     const handleResize = () => {
       const width = window.innerWidth;
@@ -42,7 +33,7 @@ const Category = () => {
         setVisibleCategories(8);
       } else if (width >= 1188) {
         setVisibleCategories(7);
-      }else if (width >= 1007) {
+      } else if (width >= 1007) {
         setVisibleCategories(6);
       } else if (width >= 506) {
         setVisibleCategories(5);
@@ -51,8 +42,8 @@ const Category = () => {
       }
     };
 
-  
-   
+
+
     handleResize();
     window.addEventListener("resize", handleResize);
 
@@ -67,31 +58,22 @@ const Category = () => {
 
   const handleRightArrowClick = () => {
     setStartIndex((prevIndex) => Math.min(prevIndex + 1, 12 - visibleCategories));
-  };  
+  };
+
+  const handleCategorySelect = (categoryid) => {
+    dispatch(filterSetter({
+     categoryId: categoryid
+    }));
+    navigate('/alldatas');
+ }
 
   const renderCategories = () => {
-    const categoryImages = [
-      img7,
-      img9,
-      img5,
-      img4,
-      img8,
-      img2,
-      img1,
-      img3,
-      img6,
-      img10,
-      img11,
-      img12
-    ];
 
-    
+
     return categories.slice(startIndex, startIndex + visibleCategories).map((category, index) => (
-      <div className={styled.category} key={index}>
-        <Link to="/results">
+      <div onClick={e=>handleCategorySelect(category.id)} className={styled.category} key={index}>
         <img style={{ width: '40px', height: '40px' }} src={`data:image/png;base64,${category.image}`} alt="Category Image" />
-          <p>Category {startIndex + index + 1}</p>
-        </Link>
+        <p>{category.name}</p>
       </div>
     ));
   };
@@ -116,20 +98,20 @@ const Category = () => {
             </div>
           </div>
           <div className="col-lg-3 col-md-12 col-sm-12 col-12">
-              <div className={styled.filterANDsearch}>
-                <div className={styled.filter}>
-                  <span>
-                    <MdOutlineSort />
-                  </span>
-                  <p>Filter</p>
-                </div>
-                <div className={styled.search}>
-                  <p>Detal kodu</p>
-                  <span>
-                    <IoSearchOutline />
-                  </span>
-                </div>
+            <div className={styled.filterANDsearch}>
+              {/* <div className={styled.filter}>
+                <span>
+                  <MdOutlineSort />
+                </span>
+                <p>Filter</p>
+              </div> */}
+              <div className={styled.search}>
+                <p>Detal kodu</p>
+                <span>
+                  <IoSearchOutline />
+                </span>
               </div>
+            </div>
           </div>
         </div>
       </div>

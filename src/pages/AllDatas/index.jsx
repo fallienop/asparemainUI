@@ -25,18 +25,18 @@ const customStyles = {
     bottom: 'auto',
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)',
-    width: '80%', // Adjust as needed
-    maxWidth: '69.15vw', // Adjust as needed
+    width: '80%',
+    maxWidth: '69.15vw',
     padding: '',
-    maxHeight: '100vh', // Set maximum height to 90vh
-    overflowY: 'auto', // Enable vertical scroll
-    border:'',
-    marginTop:'1vw'
-    
+    maxHeight: '100vh',
+    overflowY: 'auto',
+    border: '',
+    marginTop: '1vw'
+
   },
 };
 
-Modal.setAppElement('#root'); // Ensure modal accessibility
+Modal.setAppElement('#root');
 
 function AllDatas() {
   const [modalIsOpen, setIsOpen] = useState(false);
@@ -57,12 +57,12 @@ function AllDatas() {
     let resp = await axios.get(`${mainURL}/categories/getbyid/${categoryId}`);
     return resp.data.name;
   }
-  
+
   const companyFetcher = async (companyId) => {
     let resp = await axios.get(`${mainURL}/companies/${companyId}`);
     return resp.data.name;
   }
-  
+
   const partFetcher = async () => {
     let resp = await axios.get(`${mainURL}/Parts`);
     let parts = resp.data.result.parts;
@@ -77,47 +77,48 @@ function AllDatas() {
     setDatas(partsWithCategories);
   }
 
-  const partFetcherWithFilter=async ()=>{
-   let queryString='';
-    Object.keys(filters).forEach(x=>{
+  const partFetcherWithFilter = async () => {
+    let queryString = '';
+    Object.keys(filters).forEach(x => {
 
-        if(Array.isArray(filters[x])){
-          filters[x].forEach(y=>{
-            queryString+=`${x}=${y}&`;
-          })
-        }
-        else if(filters[x]!=null){
-             queryString+=`${x}=${filters[x]}&`;
-        }
+      if (Array.isArray(filters[x])) {
+        filters[x].forEach(y => {
+          queryString += `${x}=${y}&`;
+        })
+      }
+      else if (filters[x] != null) {
+        queryString += `${x}=${filters[x]}&`;
+      }
 
     })
     queryString = queryString.substring(0, queryString.length - 1);
-    // console.log(queryString);
-    let response=await axios.get(`${mainURL}/Parts/getwithfilter?${queryString}`);
-//  console.log(`${mainURL}/Parts/getwithfilter?${queryString}`);
-//     console.log(response.data);
-let parts=response.data.parts;
-const partsWithCategoryPromises = parts.map(async (part) => {
-  const companyName = await companyFetcher(part.companyId);
-  const categoryName = await categoryFetcher(part.categoryId);
-  return { ...part, companyName, categoryName };
-});
+    let response = await axios.get(`${mainURL}/Parts/getwithfilter?${queryString}`);
+    let parts = response.data.parts;
+    const partsWithCategoryPromises = parts.map(async (part) => {
+      const companyName = await companyFetcher(part.companyId);
+      const categoryName = await categoryFetcher(part.categoryId);
+      return { ...part, companyName, categoryName };
+    });
 
-const partsWithCategories = await Promise.all(partsWithCategoryPromises);
-setDatas(partsWithCategories);
-    
+    const partsWithCategories = await Promise.all(partsWithCategoryPromises);
+    setDatas(partsWithCategories);
+
   }
 
   useEffect(() => {
-    partFetcher();
+    if (filters != {}) {
+      partFetcherWithFilter();
+    } else {
+      partFetcher();
+    }
   }, []);
 
 
 
-  useEffect(()=>{
-//  console.log(filters)
-partFetcherWithFilter();
-  },[filters])
+  useEffect(() => {
+    //  console.log(filters)
+    partFetcherWithFilter();
+  }, [filters])
   return (
     <div className="hr-add">
       <hr />
@@ -158,7 +159,7 @@ partFetcherWithFilter();
                     <div className={styled.block}>
                       <div className="favoriteimg">
                         <img style={{ width: '300px', height: '300px' }} src={`data:image/png;base64,${data.image1}`} alt="" />
-                        <p style={{zIndex:'0'}} className="favorite-img-text">{data.categoryName}</p>
+                        <p style={{ zIndex: '0' }} className="favorite-img-text">{data.categoryName}</p>
                       </div>
                       <div className={styled.text}>
                         <div className={styled.name}>
